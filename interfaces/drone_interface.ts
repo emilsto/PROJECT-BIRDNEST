@@ -1,5 +1,4 @@
-//make the latestTrespassing and closestDistance nullable
-//everything just id, positionX, positionY, positionZ, recordedAt are required
+import Pilot from './pilot_interface';
 
 export default interface Drone {
     id: string;
@@ -11,5 +10,6 @@ export default interface Drone {
     recordedAt: string;
     latestTrespassing: string | null;
     closestDistance: number | null; 
+    pilot : Pilot | null;
   }
-  
+

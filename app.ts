@@ -8,15 +8,13 @@ dotenv.config();
 import connect from "./utils/connect";
 
 import droneRouter from "./routes/drone_route";
+import pilotRouter from "./routes/pilot_route";
 import { checkDroneTrespassing } from "./helpers/checkDroneTrespassing";
 import { time } from "console";
 
 const app = express();
 
 app.use(express.json());
-
-//set the view engine to ejs
-app.set('view engine', 'ejs');
 
 const port = process.env.PORT;
 
@@ -25,15 +23,9 @@ app.get("/", (req, res) => {
     res.send("Hello World!");
 });
 app.use("/api/drones", droneRouter);
+app.use("/api/pilots", pilotRouter);
 
-//page that shows all drones
-app.get("/drones", async (req, res) => {
-    const drones = await axios.get("http://localhost:4000/api/drones");
-    res.render("drones", {drones: drones.data});
-});
-
-//create a routine that fetches the data from the API every 2 seconds
-//dont worry about if the drone is already in the database, backend will handle that
+//routine that fetches the data from the API every 2 seconds
 setInterval(async () => {
     const response = await axios.get("/drones");
     const xml = response.data;
@@ -54,6 +46,7 @@ setInterval(async () => {
               recordedAt: timestamp,
               latestTrespassing: null,
               closestDistance: null,
+              pilot: null
           }
           checkDroneTrespassing(newDrone);
           axios.post("http://localhost:4000/api/drones", newDrone);

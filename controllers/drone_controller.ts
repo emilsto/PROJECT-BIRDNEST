@@ -1,7 +1,7 @@
 import * as Express from "express";
 import Drone from "../models/drone_model";
 
-import {checkDroneTrespassing} from "../helpers/checkDroneTrespassing";
+import axios from "../api/axios";
 
 export const getDrones = async (req: Express.Request, res: Express.Response) => {
     const drones = await Drone.find();
@@ -26,6 +26,9 @@ export const addDrone = async (req: Express.Request, res: Express.Response) => {
                 console.log("Drone " + req.body.id + " is in the database, but it is not in the unallowed area!");
                 return;
             }
+            //here it is confirmed that pilot has violated the unallowed area, therefore get the pilot info
+            //call the API to get the pilot info
+            const response = await axios.get(`http://localhost:4000/api/pilots/${req.body.id}`);
 
             console.log("Drone " + req.body.id + " has a new closest distance of " + req.body.closestDistance + "m");
             console.log("Drone" + req.body.id + " old closest distance: " + duplicateDrone.closestDistance + "m");
@@ -39,7 +42,7 @@ export const addDrone = async (req: Express.Request, res: Express.Response) => {
                 positionY: req.body.positionY,
                 positionZ: req.body.positionZ,
                 latestTrespassing: req.body.latestTrespassing,
-                closestDistance: req.body.closestDistance
+                closestDistance: req.body.closestDistance,
             });
             return res.send("Drone updated!");
         }
@@ -57,7 +60,6 @@ export const addDrone = async (req: Express.Request, res: Express.Response) => {
         res.send("Error!");
     }
 }
-
 //delete drone if it has not been updated in the last 20 seconds
 export const deleteDrone = async (req: Express.Request, res: Express.Response) => {
     const drone = await Drone.findOne({ id: req.params.id });

@@ -10,7 +10,12 @@ const droneSchema = new Schema({
     positionZ: Number,
     recordedAt: String,
     latestTrespassing: String,
-    closestDistance: Number
+    closestDistance: Number,
+    pilot : {
+        type: Schema.Types.ObjectId,
+        ref: "Pilot"
+    }
 });
+
 
 export default mongoose.model<drone_interface>("Drone", droneSchema);
