@@ -26,15 +26,14 @@ This way I can store data about trespassing drones and display it to the user.
 
 ## Current state of the project
 
+### Done
 - [X] API that scrapes the data from the given API parses it to a nice JSON format from the given XML
 - [X] API caches it for 10 minutes per drone
 - [X] API checks what drones have been flying over a given location in the last 10 minutes and sends them in a single response
 - [X] Create a frontend that displays the data in a nice way
 - [X] Create a backend method that sends the user info of a drone that has violated the airspace
 
-
-## ToDo
-
+### ToDo
 - [ ] Refactor the code, in necessary places, mainly the backend
 - [ ] Do some testing
 - [ ] Add a map to the frontend that shows the location of the drone
