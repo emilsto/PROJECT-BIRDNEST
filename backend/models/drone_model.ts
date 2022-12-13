@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 import drone_interface from "../interfaces/drone_interface";
+import Pilot from "./pilot_model";
 
 //Schema for the drone model
 const droneSchema = new Schema({
@@ -11,10 +12,7 @@ const droneSchema = new Schema({
     recordedAt: String,
     latestTrespassing: String,
     closestDistance: Number,
-    pilot : {
-        type: Schema.Types.ObjectId,
-        ref: "Pilot"
-    }
+    pilot : Pilot.schema
 });
 
 

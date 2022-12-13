@@ -2,6 +2,16 @@ import express from "express";
 import xml2js from "xml2js";
 import axios from "./api/axios";
 import dotenv from "dotenv";
+import cors from "cors";
+
+const corsOptions = {
+    origin: "http://localhost:3000",
+    optionsSuccessStatus: 200,
+    Credentials: true,
+    
+};
+
+cors(corsOptions);
 
 dotenv.config();
 
@@ -13,11 +23,8 @@ import { checkDroneTrespassing } from "./helpers/checkDroneTrespassing";
 import { time } from "console";
 
 const app = express();
-
 app.use(express.json());
-
 const port = process.env.PORT;
-
 //test route
 app.get("/", (req, res) => {
     res.send("Hello World!");
