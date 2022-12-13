@@ -10,6 +10,6 @@ export default interface Drone {
     //save the time when the drone was recorded
     recordedAt: string;
     latestTrespassing: string | null;
-    closestDistance: number | null;
+    closestDistance: number | null; 
   }
   

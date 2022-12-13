@@ -40,7 +40,7 @@ setInterval(async () => {
     const parser = new xml2js.Parser();
     parser.parseString(xml, (err, result) => {
         if (err) {
-
+            console.log(err);
         } else {
           //
           const drones = (result.report.capture[0].drone);
@@ -53,12 +53,9 @@ setInterval(async () => {
               positionZ: drone.altitude[0],
               recordedAt: timestamp,
               latestTrespassing: null,
-              closestDistance: null
+              closestDistance: null,
           }
-          //console.log("New Drone: ");
           checkDroneTrespassing(newDrone);
-          //console.log(newDrone);
-
           axios.post("http://localhost:4000/api/drones", newDrone);
         }
         );
@@ -73,7 +70,7 @@ setInterval(async () => {
     drones.data.forEach((drone: any) => {
             axios.delete("http://localhost:4000/api/drones/" + drone.id);
     });
-}, 10000);
+}, 60000);
 
 //start the server 
 app.listen(port, async () => {

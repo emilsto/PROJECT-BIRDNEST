@@ -9,5 +9,6 @@ export const checkDroneTrespassing = (drone : Drone) => {
     //set the brokeZoneAt time
     drone.latestTrespassing = new Date().toISOString();
     drone.closestDistance = distance;
+    console.log("TRESPASSING TIME: " + drone.latestTrespassing);
   }
 };

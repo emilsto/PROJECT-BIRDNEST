@@ -16,18 +16,35 @@ export const addDrone = async (req: Express.Request, res: Express.Response) => {
         req.body.id
     });
     if (duplicateDrone) {
-        //if duplicateDrone.latestTrespassing and req.body.latestTrespassing null, then do nothing
-        if (req.body.latestTrespassing == null ) {
-            console.log(req.body);
-            console.log(req.body.id + "Drone already exists and no new trespassing data has been provided, not updating");
-            return res.status(200).send("Drone already exists and no new trespassing data has been provided");
+        //perform a check, if the duplicateDrone.closestDistance is bigger than the req.body.closestDistance, then update the drone
+        if (duplicateDrone.closestDistance === null || duplicateDrone.closestDistance > req.body.closestDistance)  {
+            if(req.body.closestDistance === null) {
+                //just return if the duplicateDrone.closestDistance is null, because the drone is in the database, but the closestDistance is null
+                //this is not so clean, but it works
+                //the problem is that the closestDistance is null, because the drone is not in the unallowed area
+                //but the drone is in the database, so we dont want to update the drone
+                console.log("Drone " + req.body.id + " is in the database, but it is not in the unallowed area!");
+                return;
+            }
+
+            console.log("Drone " + req.body.id + " has a new closest distance of " + req.body.closestDistance + "m");
+            console.log("Drone" + req.body.id + " old closest distance: " + duplicateDrone.closestDistance + "m");
+            await Drone.findOne
+            ({ id:
+                req.body.id
+            }).updateOne
+            //update the drone, but dont update the recordedAt time
+            ({ id: req.body.id,
+                positionX: req.body.positionX,
+                positionY: req.body.positionY,
+                positionZ: req.body.positionZ,
+                latestTrespassing: req.body.latestTrespassing,
+                closestDistance: req.body.closestDistance
+            });
+            return res.send("Drone updated!");
         }
-        else {
-        console.log("UPDATING OLD DRONE WITH ID " + req.body.id + req.body.latestTrespassing );
-        console.log
-        await Drone.updateOne({ id: req.body.id }, req.body);
-        res.send("Drone updated!");
-        }
+        //if the duplicateDrone.closestDistance is smaller than the req.body.closestDistance, then do nothing
+        return;
     }
     else {
         console.log("Drone " + req.body.id + " is not in the database!");
