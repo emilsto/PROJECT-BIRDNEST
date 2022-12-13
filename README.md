@@ -11,11 +11,18 @@ This way I can store data about trespassing drones and display it to the user.
 
 ## Technologies used
 
+### Backend
 - Node.js
 - Typescript
 - Express
 - Axios
 - XML2JS
+
+### Frontend
+- React
+- Typescript
+- Axios
+- TailwindCSS
 
 ## Current state of the project
 
@@ -32,3 +39,11 @@ This way I can store data about trespassing drones and display it to the user.
 - [ ] Do some testing
 - [ ] Add a map to the frontend that shows the location of the drone
 - [ ] Deploy the application to a server
+
+## How to run the project
+
+1. Clone the repository
+2. cd to backend and run `npm install` and then `npm run dev`
+3. cd to frontend and run `npm install` and then `npm start`
+4. Go to localhost:3000 and enjoy the application. Additonally you can go to localhost:4000/api/drones/trespassers to see the data that the backend is sending to the frontend
+
