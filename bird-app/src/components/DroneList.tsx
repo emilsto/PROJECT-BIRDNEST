@@ -23,12 +23,12 @@ const DroneList = (props: DroneListProps) => {
       <p className="text-2xl  text-black">Total unique violators during last 10 minutes: {props.drones.length} </p>
       <table className="text-left">
         <thead className="flex text-white bg-black">
-          <tr className="flex ">
+          <tr className="flex whitespace-nowrap">
             <th className={TH_CSS}>Drone ID</th>
             <th className={TH_CSS}>Pilot</th>
             <th className={TH_CSS}>Phone</th>
             <th className={TH_CSS}>Email</th>
-            <th className={TH_CSS}>Trespassed</th>
+            <th className={TH_CSS}>Trespassed at</th>
             <th className={TH_CSS}>Closest distance</th>
           </tr>
         </thead>

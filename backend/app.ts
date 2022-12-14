@@ -56,7 +56,12 @@ setInterval(async () => {
               pilot: null
           }
           checkDroneTrespassing(newDrone);
-          axios.post("http://localhost:4000/api/drones", newDrone);
+          if(newDrone.latestTrespassing !== null) {
+            axios.post("http://localhost:4000/api/drones", newDrone);
+        } else {
+            //drone has not passed unallowed area, so we do not need its data
+            console.log("Drone " + newDrone.id + " has not passed unallowed area!, ignore it!");
+            }
         }
         );
         }

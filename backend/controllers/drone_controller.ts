@@ -23,7 +23,6 @@ export const addDrone = async (req: Express.Request, res: Express.Response) => {
                 //this is not so clean, but it works
                 //the problem is that the closestDistance is null, because the drone is not in the unallowed area
                 //but the drone is in the database, so we dont want to update the drone
-                console.log("Drone " + req.body.id + " is in the database, but it is not in the unallowed area!");
                 return;
             }
             //here it is confirmed that pilot has violated the unallowed area, therefore get the pilot info
@@ -33,8 +32,6 @@ export const addDrone = async (req: Express.Request, res: Express.Response) => {
             console.log(pilot.firstName)
             //then add the pilot to the drone
 
-            console.log("Drone " + req.body.id + " has a new closest distance of " + req.body.closestDistance + "m");
-            console.log("Drone" + req.body.id + " old closest distance: " + duplicateDrone.closestDistance + "m");
             await Drone.findOneAndUpdate(
             { id: req.body.id },
             // Include the pilot object in the update
@@ -55,8 +52,12 @@ export const addDrone = async (req: Express.Request, res: Express.Response) => {
         return;
     }
     else {
-        console.log("Drone " + req.body.id + " is not in the database!");
-        console.log("Adding drone " + req.body.id + " to the database...");
+        //TODO this code is duplicated, so it should be refactored to perform check FIRST
+        const response = await axios.put(`http://localhost:4000/api/pilots/${req.body.id}`);
+        const pilot = response.data;
+        console.log(pilot.firstName)
+        //then add the pilot to the drone
+        req.body.pilot = pilot;
         await Drone.create(req.body);
         res.send("Drone added!");
     }    
