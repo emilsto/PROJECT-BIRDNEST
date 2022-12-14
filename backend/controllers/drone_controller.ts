@@ -91,7 +91,7 @@ export const deleteDrone = async (req: Express.Request, res: Express.Response) =
 
 //get all drones who have trespassed in
 export const getTrespassingDrones = async (req: Express.Request, res: Express.Response) => {
-    const drones = await Drone.find({ latestTrespassing: { $ne: null } }).sort({ latestTrespassing: 1 });
+    const drones = await Drone.find({ latestTrespassing: { $ne: null } }).sort({ latestTrespassing: -1 });
     res.send(drones);
 }
 

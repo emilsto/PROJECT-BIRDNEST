@@ -1,50 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Drone from "../interfaces/Drone_interface";
 import droneImage from "../assets/drone.svg";
 
 interface DroneCardProps {
-    drone: Drone;
+  drone: Drone;
 }
+
+const TD_CSS = "w-1/2"
 
 const DroneCard = (props: DroneCardProps) => {
 
-    //This makes me go mad, why is this not working?
-    if (typeof props.drone.latestTrespassing === "string") {
-        const date = new Date(props.drone.latestTrespassing);
-        if (isNaN(date.getTime())) {
-          // The date is not valid, handle the error
-          console.log("Invalid date");
-        } else {
-          // The date is valid, format it using the Finnish locale
-          props.drone.latestTrespassing = date.toLocaleString("fi-FI");
-        }
-      }
+  //This makes me go mad, why is this not working?
+  if (typeof props.drone.latestTrespassing === "string") {
+    const date = new Date(props.drone.latestTrespassing);
+    if (isNaN(date.getTime())) {
+      // The date is not valid, handle the error
+    } else {
+      // The date is valid, format it using the Finnish locale
+      props.drone.latestTrespassing = date.toLocaleString("fi-FI");
+    }
 
-    return (
-<div
-      className="flex-col border border-slate-50 rounded-none p-4 hover:bg-slate-100"
-    >
-      <div className="flex">
-        <img
-          className="rounded-full w-12 h-12 hover:opacity-75"
-          src={droneImage}
-          alt=""
-        ></img>
-        <div className=" mx-1">
-          <div className="flex flex-row">
-              <p className="hover:text-slate-700">{props.drone.pilot?.firstName} {props.drone.pilot?.lastName}</p>
-          </div>
-          <p className="text-gray-400">{props.drone.pilot?.phoneNumber}</p>
-            <p className="text-gray-400">{props.drone.pilot?.email}</p>
-        </div>
-      </div>
-      <div className="max-w-220 mx-12">
-      <p>Drone ID: {props.drone.id}</p>
-            <p>Closest distance to the nest: {props.drone.closestDistance?.toFixed(1)} meters</p>
-            <p>Latest trespassing: {props.drone.latestTrespassing}</p>
-      </div>
-    </div>
-    );
+  }
+  return (
+    <tr className="flex text-xs text-center border hover:bg-slate-100 py-2">
+      <td className={TD_CSS}>{props.drone.id}</td>
+      <td className={TD_CSS}>{props.drone.pilot?.firstName} {props.drone.pilot?.lastName}</td>
+      <td className={TD_CSS}>{props.drone.pilot?.phoneNumber}</td>
+      <td className={TD_CSS}>{props.drone.pilot?.email}</td>
+      <td className={TD_CSS}>{props.drone.latestTrespassing}</td>
+      <td className={TD_CSS}>{props.drone.closestDistance?.toFixed(2)} <p className="inline">Meters</p></td>
+    </tr>
+
+  );
 };
 
 export default DroneCard;

@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 app.use("/api/drones", droneRouter);
 app.use("/api/pilots", pilotRouter);
 
-//routine that fetches the data from the API every 2 seconds
+//Interval func that fetches the data from the API every 2 seconds
 setInterval(async () => {
     const response = await axios.get("/drones");
     const xml = response.data;
@@ -63,7 +63,7 @@ setInterval(async () => {
     });
 }, 2000);
 
-//routine to send delete request for drones that have not been updated in the last 10 minutes
+//Interval func to send delete request for drones that have not been updated in the last 10 minutes
 setInterval(async () => {
     console.log("Deleting drones that have not been updated in the last 10 minutes...");
     const drones = await axios.get("http://localhost:4000/api/drones");
