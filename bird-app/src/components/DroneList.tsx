@@ -38,14 +38,22 @@ const DroneList = (props: DroneListProps) => {
         })}
         </tbody>
       </table>
+      <div className="flex flex-row" >
+      <div className="flex flex-col" >
       <p className="text-6xl  text-black">Drone-O-Visualiz0r</p>
       <p className="text-4xl  text-black">Maps of latest violation locations</p>
-      <div className="flex flex-row">
-      <div className="m-6 w-24 h-24 bg-red-500 rounded-full text-white">
-        <p className="justify-self-center">Bird nest</p>
+      <p className="text-2xl">(Yeah, they are also updated)</p>
       </div>
-      <div className="m-6 w-24 h-24 text-center bg-blue-500 rounded-full text-white">
-        <p>Drone</p>
+      <div className="flex flex-row">
+      <div className="flex justify-center items-center m-6 w-24 h-24 bg-red-500 rounded-full text-white">
+        <p className="">Drone</p>
+      </div>
+      <div className="flex justify-center items-center m-6 w-24 h-24 bg-blue-500 rounded-full text-white">
+        <p>Bird nest</p>
+      </div>
+      <div className="flex justify-center items-center m-6 w-24 h-24 border-2 border-black rounded-full text-white">
+        <p className="text-black">NDZ</p>
+      </div>
       </div>
       </div>
         <div className="grid grid-cols-2 border-2 border-black">

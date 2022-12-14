@@ -8,10 +8,8 @@ const corsOptions = {
     origin: "http://localhost:3000",
     optionsSuccessStatus: 200,
     Credentials: true,
-    
 };
 
-cors(corsOptions);
 
 dotenv.config();
 
@@ -24,6 +22,8 @@ import { time } from "console";
 
 const app = express();
 app.use(express.json());
+app.use(cors(corsOptions));
+
 const port = process.env.PORT;
 //test route
 app.get("/", (req, res) => {
