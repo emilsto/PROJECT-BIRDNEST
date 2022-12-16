@@ -15,26 +15,17 @@ export const addDrone = async (req: Express.Request, res: Express.Response) => {
     ({ id:
         req.body.id
     });
+    //here it is confirmed that pilot has violated the unallowed area, therefore get the pilot info
+    //call the API to get the pilot info
+    const response = await axios.put(`http://localhost:4000/api/pilots/${req.body.id}`);
+    const pilot = response.data;
     if (duplicateDrone) {
         //perform a check, if the duplicateDrone.closestDistance is bigger than the req.body.closestDistance, then update the drone
+        //duplicateDrone.closestDistance null should never happen, but just to make TypeScript happy
         if (duplicateDrone.closestDistance === null || duplicateDrone.closestDistance > req.body.closestDistance)  {
-            if(req.body.closestDistance === null) {
-                //just return if the duplicateDrone.closestDistance is null, because the drone is in the database, but the closestDistance is null
-                //this is not so clean, but it works
-                //the problem is that the closestDistance is null, because the drone is not in the unallowed area
-                //but the drone is in the database, so we dont want to update the drone
-                return;
-            }
-            //here it is confirmed that pilot has violated the unallowed area, therefore get the pilot info
-            //call the API to get the pilot info
-            const response = await axios.put(`http://localhost:4000/api/pilots/${req.body.id}`);
-            const pilot = response.data;
-            console.log(pilot.firstName)
-            //then add the pilot to the drone
-
+            //if the duplicateDrone.closestDistance is bigger than the req.body.closestDistance, then update the drone with new data
             await Drone.findOneAndUpdate(
             { id: req.body.id },
-            // Include the pilot object in the update
             { $set: {
               id: req.body.id,
               positionX: req.body.positionX,
@@ -44,19 +35,16 @@ export const addDrone = async (req: Express.Request, res: Express.Response) => {
               closestDistance: req.body.closestDistance,
               pilot: pilot
             }},
+            //return the updated document instead of the original document
             { new: true }
             );
             return res.send("Drone updated!");
         }
         //if the duplicateDrone.closestDistance is smaller than the req.body.closestDistance, then do nothing
-        return;
+        return res.send("Drone not updated!");
     }
     else {
-        //TODO this code is duplicated, so it should be refactored to perform check FIRST
-        const response = await axios.put(`http://localhost:4000/api/pilots/${req.body.id}`);
-        const pilot = response.data;
-        console.log(pilot.firstName)
-        //then add the pilot to the drone
+        //if there is no duplicate drone, then add the drone to the database
         req.body.pilot = pilot;
         await Drone.create(req.body);
         res.send("Drone added!");

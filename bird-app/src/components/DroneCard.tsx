@@ -6,7 +6,7 @@ interface DroneCardProps {
   drone: Drone;
 }
 
-const TD_CSS = "w-1/2"
+const TD_CSS = "pr-4"
 
 const DroneCard = (props: DroneCardProps) => {
 
@@ -22,7 +22,7 @@ const DroneCard = (props: DroneCardProps) => {
 
   }
   return (
-    <tr className="flex text-xs text-center border hover:bg-slate-100 py-2">
+    <tr className="hover:bg-slate-200 border-y-2 border-black">
       <td className={TD_CSS}>{props.drone.id}</td>
       <td className={TD_CSS}>{props.drone.pilot?.firstName} {props.drone.pilot?.lastName}</td>
       <td className={TD_CSS}>{props.drone.pilot?.phoneNumber}</td>

@@ -8,7 +8,7 @@ interface DroneListProps {
   drones: Drone[];
 }
 
-const TH_CSS = "w-full px-12"
+const TH_CSS = "w-1/12 p-6"
 
 const DroneList = (props: DroneListProps) => {
 
@@ -21,18 +21,18 @@ const DroneList = (props: DroneListProps) => {
       </div>
       <p className="text-4xl  text-black">In the NDZ</p>
       <p className="text-2xl  text-black">Total unique violators during last 10 minutes: {props.drones.length} </p>
-      <table className="text-left">
-        <thead className="flex text-white bg-black">
-          <tr className="flex whitespace-nowrap">
+      <table className="flex flex-col">
+        <thead className="text-left bg-black text-white">
+          <tr className="">
             <th className={TH_CSS}>Drone ID</th>
             <th className={TH_CSS}>Pilot</th>
             <th className={TH_CSS}>Phone</th>
             <th className={TH_CSS}>Email</th>
-            <th className={TH_CSS}>Trespassed at</th>
+            <th className={TH_CSS}>Latest trespassinng</th>
             <th className={TH_CSS}>Closest distance</th>
           </tr>
         </thead>
-        <tbody className="flex flex-col overflow-y-scroll w-full droneTable">
+        <tbody className="droneTable">
         {props.drones.map((drone) => {
           return <DroneCard drone={drone} key={drone.id} />;
         })}

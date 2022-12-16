@@ -56,7 +56,7 @@ setInterval(async () => {
               pilot: null
           }
           checkDroneTrespassing(newDrone);
-          if(newDrone.latestTrespassing !== null) {
+          if(newDrone.closestDistance !== null) {
             axios.post("http://localhost:4000/api/drones", newDrone);
         } else {
             //drone has not passed unallowed area, so we do not need its data

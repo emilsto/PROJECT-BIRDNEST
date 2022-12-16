@@ -45,7 +45,7 @@ const DroneMap = (props: DroneMapProps) => {
       }, [props.drone.positionX, props.drone.positionY, props.drone.id]);
 
     return (
-        <div className="w-fit border-2 border-black">
+        <div className="border-2 border-black">
                     <div className="bg-black">
               <p className="text-white text-center">{props.drone.id} - {props.drone?.pilot?.firstName} {props.drone?.pilot?.lastName} </p>
             </div>

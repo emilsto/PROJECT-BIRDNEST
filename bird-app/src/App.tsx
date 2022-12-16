@@ -25,11 +25,9 @@ const App = () => {
   }, []);
 
   return (
-    <div className="">
       <div className="flex justify-center md:m-5">
         <DroneList drones={drones} />
       </div>
-    </div>
   );
 };
 
