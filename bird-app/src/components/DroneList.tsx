@@ -8,7 +8,7 @@ interface DroneListProps {
   drones: Drone[];
 }
 
-const TH_CSS = "w-1/12 p-6"
+const TH_CSS = ""
 
 const DroneList = (props: DroneListProps) => {
 
@@ -21,7 +21,7 @@ const DroneList = (props: DroneListProps) => {
       </div>
       <p className="text-4xl  text-black">In the NDZ</p>
       <p className="text-2xl  text-black">Total unique violators during last 10 minutes: {props.drones.length} </p>
-      <table className="flex flex-col">
+      <table className="">
         <thead className="text-left bg-black text-white">
           <tr className="">
             <th className={TH_CSS}>Drone ID</th>

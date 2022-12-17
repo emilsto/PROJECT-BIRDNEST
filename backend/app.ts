@@ -18,7 +18,6 @@ import connect from "./utils/connect";
 import droneRouter from "./routes/drone_route";
 import pilotRouter from "./routes/pilot_route";
 import { checkDroneTrespassing } from "./helpers/checkDroneTrespassing";
-import { time } from "console";
 
 const app = express();
 app.use(express.json());
@@ -57,7 +56,7 @@ setInterval(async () => {
           }
           checkDroneTrespassing(newDrone);
           if(newDrone.closestDistance !== null) {
-            axios.post("http://localhost:4000/api/drones", newDrone);
+            axios.post(`http://localhost:${port}/api/drones`, newDrone);
         } else {
             //drone has not passed unallowed area, so we do not need its data
             console.log("Drone " + newDrone.id + " has not passed unallowed area!, ignore it!");
@@ -71,9 +70,9 @@ setInterval(async () => {
 //Interval func to send delete request for drones that have not been updated in the last 10 minutes
 setInterval(async () => {
     console.log("Deleting drones that have not been updated in the last 10 minutes...");
-    const drones = await axios.get("http://localhost:4000/api/drones");
+    const drones = await axios.get(`http://localhost:${port}/api/drones`);
     drones.data.forEach((drone: any) => {
-            axios.delete("http://localhost:4000/api/drones/" + drone.id);
+            axios.delete(`http://localhost:${port}/api/drones/` + drone.id);
     });
 }, 60000);
 

@@ -1,5 +1,9 @@
 import * as Express from "express";
 import Drone from "../models/drone_model";
+import dotenv from "dotenv";
+
+dotenv.config({ path: "../.env"});
+const port = process.env.PORT;
 
 import axios from "../api/axios";
 
@@ -17,7 +21,7 @@ export const addDrone = async (req: Express.Request, res: Express.Response) => {
     });
     //here it is confirmed that pilot has violated the unallowed area, therefore get the pilot info
     //call the API to get the pilot info
-    const response = await axios.put(`http://localhost:4000/api/pilots/${req.body.id}`);
+    const response = await axios.put(`http://localhost:${port}/api/pilots/${req.body.id}`);
     const pilot = response.data;
     if (duplicateDrone) {
         //perform a check, if the duplicateDrone.closestDistance is bigger than the req.body.closestDistance, then update the drone
