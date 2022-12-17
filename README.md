@@ -46,3 +46,7 @@ This way I can store data about trespassing drones and display it to the user.
 3. cd to frontend and run `npm install` and then `npm start`
 4. Go to localhost:3000 and enjoy the application. Additonally you can go to localhost:4000/api/drones/trespassers to see the data that the backend is sending to the frontend
 
+##  Images
+
+![Alt text](/screenshots/visualizor.png?raw=true "Visualizor")
+![Alt text](/screenshots/dronelist.png "Visualizor")
