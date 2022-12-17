@@ -48,5 +48,8 @@ This way I can store data about trespassing drones and display it to the user.
 
 ##  Images
 
-![Alt text](/screenshots/visualizor.png?raw=true "Visualizor")
+Here are some images of the application. The first one is the list of drones that have been flying over the given location in the last 10 minutes. The second one is a map that shows the latest trespassing location of the drone. NDZ stands for No Drone Zone, and it shows the 100m radius around the given location.
+
 ![Alt text](/screenshots/dronelist.png "Visualizor")
+![Alt text](/screenshots/visualizor.png?raw=true "Visualizor")
+
