@@ -52,3 +52,4 @@ Here are some images of the application. The first one is the list of drones tha
 
 ![Alt text](/screenshots/dronelist.png "Visualizor")
 ![Alt text](/screenshots/visualizor.png?raw=true "Visualizor")
+![Alt text](/screenshots/dronelist.png "Visualizor")
