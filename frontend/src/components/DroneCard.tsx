@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
 import Drone from "../interfaces/Drone_interface";
-import droneImage from "../assets/drone.svg";
 
 interface DroneCardProps {
   drone: Drone;

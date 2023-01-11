@@ -1,5 +1,5 @@
 //Component to draw the drone map
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Drone from "../interfaces/Drone_interface";
 
 interface DroneMapProps {

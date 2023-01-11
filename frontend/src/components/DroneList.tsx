@@ -1,4 +1,3 @@
-import React from "react";
 import DroneCard from "./DroneCard";
 import DroneMap from "./DroneMap";
 import Drone from "../interfaces/Drone_interface";
