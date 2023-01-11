@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 const corsOptions = {
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "http://ec2-13-48-25-197.eu-north-1.compute.amazonaws.com"],
     optionsSuccessStatus: 200,
     Credentials: true,
 };
