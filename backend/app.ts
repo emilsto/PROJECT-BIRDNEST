@@ -10,11 +10,9 @@ const corsOptions = {
     Credentials: true,
 };
 
-
 dotenv.config();
 
 import connect from "./utils/connect";
-
 import droneRouter from "./routes/drone_route";
 import pilotRouter from "./routes/pilot_route";
 import { checkDroneTrespassing } from "./helpers/checkDroneTrespassing";

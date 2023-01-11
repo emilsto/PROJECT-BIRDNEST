@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/d1759d34-74e5-4225-a0c1-fe46407ad8e2/appservices/subscriptions/d1759d34-74e5-4225-a0c1-fe46407ad8e2/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/drone-detectror",
+    "appService.deploySubpath": "."
+}
