@@ -63,7 +63,7 @@ setInterval(async () => {
         );
         }
     });
-}, 2000);
+}, 2200);
 
 //Interval func to send delete request for drones that have not been updated in the last 10 minutes
 setInterval(async () => {
