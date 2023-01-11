@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 const corsOptions = {
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000"],
     optionsSuccessStatus: 200,
     Credentials: true,
 };
@@ -31,39 +31,42 @@ app.use("/api/pilots", pilotRouter);
 
 //Interval func that fetches the data from the API every 2 seconds
 setInterval(async () => {
-    const response = await axios.get("/drones");
-    const xml = response.data;
-    const parser = new xml2js.Parser();
-    parser.parseString(xml, (err, result) => {
-        if (err) {
-            console.log(err);
-        } else {
-          //
-          const drones = (result.report.capture[0].drone);
-          const timestamp = (result.report.capture[0].$.snapshotTimestamp);
-          drones.forEach((drone: any) => {
-            let newDrone = {
-              id: drone.serialNumber[0],
-              positionX: drone.positionX[0],
-              positionY: drone.positionY[0],
-              positionZ: drone.altitude[0],
-              recordedAt: timestamp,
-              latestTrespassing: null,
-              closestDistance: null,
-              pilot: null
-          }
-          checkDroneTrespassing(newDrone);
-          if(newDrone.closestDistance !== null) {
-            axios.post(`http://localhost:${port}/api/drones`, newDrone);
-        } else {
-            //drone has not passed unallowed area, so we do not need its data
-            console.log("Drone " + newDrone.id + " has not passed unallowed area!, ignore it!");
+    try {
+        const response = await axios.get("/drones");
+        const xml = response.data;
+        const parser = new xml2js.Parser();
+        parser.parseString(xml, (err, result) => {
+              const drones = (result.report.capture[0].drone);
+              const timestamp = (result.report.capture[0].$.snapshotTimestamp);
+              drones.forEach((drone: any) => {
+                let newDrone = {
+                  id: drone.serialNumber[0],
+                  positionX: drone.positionX[0],
+                  positionY: drone.positionY[0],
+                  positionZ: drone.altitude[0],
+                  recordedAt: timestamp,
+                  latestTrespassing: null,
+                  closestDistance: null,
+                  pilot: null
+              }
+              checkDroneTrespassing(newDrone);
+              if(newDrone.closestDistance !== null) {
+                axios.post(`http://localhost:${port}/api/drones`, newDrone);
+            } else {
+                //drone has not passed unallowed area, so we do not need its data
+                console.log("Drone " + newDrone.id + " has not passed unallowed area!, ignore it!");
+                }
             }
-        }
-        );
-        }
-    });
-}, 2200);
+            );
+        });
+       
+    }
+    catch (err) {
+        console.log(err);
+        //wait
+
+    }
+}, 2100); //wait 2.1 seconds to avoid getting blocked by the API
 
 //Interval func to send delete request for drones that have not been updated in the last 10 minutes
 setInterval(async () => {

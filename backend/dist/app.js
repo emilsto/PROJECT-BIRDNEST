@@ -18,7 +18,7 @@ const axios_1 = __importDefault(require("./api/axios"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
 const corsOptions = {
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000"],
     optionsSuccessStatus: 200,
     Credentials: true,
 };
@@ -39,15 +39,11 @@ app.use("/api/drones", drone_route_1.default);
 app.use("/api/pilots", pilot_route_1.default);
 //Interval func that fetches the data from the API every 2 seconds
 setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
-    const response = yield axios_1.default.get("/drones");
-    const xml = response.data;
-    const parser = new xml2js_1.default.Parser();
-    parser.parseString(xml, (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            //
+    try {
+        const response = yield axios_1.default.get("/drones");
+        const xml = response.data;
+        const parser = new xml2js_1.default.Parser();
+        parser.parseString(xml, (err, result) => {
             const drones = (result.report.capture[0].drone);
             const timestamp = (result.report.capture[0].$.snapshotTimestamp);
             drones.forEach((drone) => {
@@ -70,9 +66,13 @@ setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
                     console.log("Drone " + newDrone.id + " has not passed unallowed area!, ignore it!");
                 }
             });
-        }
-    });
-}), 2000);
+        });
+    }
+    catch (err) {
+        console.log(err);
+        //wait
+    }
+}), 2100); //wait 2.1 seconds to avoid getting blocked by the API
 //Interval func to send delete request for drones that have not been updated in the last 10 minutes
 setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
     console.log("Deleting drones that have not been updated in the last 10 minutes...");
