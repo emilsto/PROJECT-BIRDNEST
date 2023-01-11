@@ -10,7 +10,13 @@ In a nutshell, my aproach is to create my own API that scrapes the data from the
 
 ## Technologies used
 
-## Deployment
+### Deployment
+
+The application is deployed on two AWS EC2 instances, one running the backend and the other running the frontend. Both instances are running on Amazon Linux 2 operating system, ensuring a stable and secure environment for the application to run.
+
+The backend instance is configured with Node.js and all the necessary packages to run the application, while the frontend instance is configured with a web server (nginx) to serve the React application.
+
+Both instances are also configured to automatically start the application when the instances are launched.
 
 ### Backend
 - Node.js
