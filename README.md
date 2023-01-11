@@ -6,15 +6,18 @@ This is a solution to the pre-assignment for the Reaktor summer 2023 internship.
 
 ## Aproach to the problem
 
-In a nutshell, my aproach is to create my own API that scrapes the data from the given API and then caches it for a short period of time, 10 minutes in this case. 
-This way I can store data about trespassing drones and display it to the user. 
+In a nutshell, my aproach is to create my own API that scrapes the data from the given API and then posts the data my own MongoDB that holds the data for a given time, 10 minutes in this case. This way I can store data about trespassing drones and display it to the user instantly on load. 
 
 ## Technologies used
+
+## Deployment
 
 ### Backend
 - Node.js
 - Typescript
 - Express
+- mongoDB
+- MongoDB atlas
 - Axios
 - XML2JS
 
@@ -30,14 +33,9 @@ This way I can store data about trespassing drones and display it to the user.
 - [X] API that scrapes the data from the given API parses it to a nice JSON format from the given XML
 - [X] API caches it for ~10 minutes per drone
 - [X] API checks what drones have been flying over a given location in the last 10 minutes and sends them in a single response
-- [X] Create a frontend that displays the data in a nice way
 - [X] Create a backend method that sends the user info of a drone that has violated the airspace
-
-### ToDo
-- [ ] Refactor the code, in necessary places, mainly the backend
-- [ ] Do some testing
-- [ ] Add a map to the frontend that shows the location of the drone
-- [ ] Deploy the application to a server
+- [X] Create a frontend that displays the data in a nice way
+- [X] Deploy the application to a server
 
 ## How to run the project
 
@@ -48,7 +46,7 @@ This way I can store data about trespassing drones and display it to the user.
 
 ##  Images
 
-Here are some images of the application. The first one is the list of drones that have been flying over the given location in the last 10 minutes. The second one is a map that shows the latest trespassing location of the drone. NDZ stands for No Drone Zone, and it shows the 100m radius around the given location.
+Here are some images of the application. The first one is the list of drones that have been flying over the given location in the last 10 minutes. The second one is a map that shows the latest trespassing location of the drone. NDZ stands for No Drone Zone, and it shows the 100m radius around the given location. (aka the nest)
 
 ![Alt text](/screenshots/dronelist.png "Visualizor")
 ![Alt text](/screenshots/visualizor.png?raw=true "Visualizor")
